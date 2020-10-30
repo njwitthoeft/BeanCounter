@@ -18,7 +18,7 @@ These images must be taken:
 3. A i*j-line CSV containing information about each seed, where j is the number of images in the collection
 4. A j-line CSV containing population parameters of a collection of seedlots
 
-# Usage
+## Usage
 1. Create a folder which contains all images of interest
 2. Use the Create Project tool to add the folder of images to BeanCounter
 3. Use the Actions -> Run tool to run the analysis: This should take less than 60 seconds
