@@ -1,2 +1,2 @@
 # BeanCounter
-image analysis for rapid phenotyping of soybeans
+Image analysis for rapid phenotyping of soybeans. Developing under the UROP @ University of Minnesota
