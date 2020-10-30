@@ -13,7 +13,7 @@ These images must be taken:
 4. Can be of any size, and contain any number of seeds
  
 ## Outputs
-1. A i-line CSV containing measurements of individual seeds, where n is the number of seeds in the image
+1. A i-line CSV containing measurements of individual seeds, where i is the number of seeds in the image
 2. A one-line CSV containing population parameters of a seedlot
 3. A i*j-line CSV containing information about each seed, where j is the number of images in the collection
 4. A j-line CSV containing population parameters of a collection of seedlots
