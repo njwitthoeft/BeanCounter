@@ -1,0 +1,44 @@
+-add zbar decode and label
+-add established opencv approach
+-add novel methdods for seed evaluation
+-add plotting in app
+-add csv export
+-add pdf report builder
+
+
+-get zbar prootype working
+  - limit search area for speedup
+  - save decoded value to var
+  
+-add pickle for serializing image arrays
+  -original
+  -singleband
+  -binarized
+  -annotated
+  -add read from CSV functionality, regenerate image array if pickle not present
+  
+-add measurements module 
+  - serialize definition 
+  - get l
+  - get w
+  - get C
+  - get AS
+  - get CG
+  - get DS
+  - get Ecc
+
+- add pandas data storage
+  - all seeds
+  
+- add statistics module
+  - should get pop params for each seedlot
+  - should have a submod for visualiztion 
+    -flag for report generation vs display
+    
+- write population stats
+  -new df
+  
+- write method for csv export
+
+-write pdfgenerator
+
