@@ -6,7 +6,7 @@ This software is used to rapidly measure dimensions of seeds from images taken i
 
 ## Inputs
 BeanCounter takes in an unstructured folder of images.
-These images must be taken:
+These images:
 1. Be taken from a fixed position
 2. Be taken in even and consistent lighting
 3. Can contain barcodes identifying seedlots
