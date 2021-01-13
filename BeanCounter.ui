@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>960</width>
-    <height>531</height>
+    <width>963</width>
+    <height>522</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -111,14 +111,14 @@
       </rect>
      </property>
      <property name="text">
-      <string>ALt2</string>
+      <string/>
      </property>
     </widget>
    </widget>
    <widget class="Line" name="line">
     <property name="geometry">
      <rect>
-      <x>450</x>
+      <x>460</x>
       <y>60</y>
       <width>20</width>
       <height>381</height>
@@ -202,17 +202,17 @@ background-color: rgb(255, 255, 255);</string>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>480</x>
-      <y>90</y>
-      <width>461</width>
-      <height>351</height>
+      <x>540</x>
+      <y>60</y>
+      <width>401</width>
+      <height>371</height>
      </rect>
     </property>
     <property name="text">
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../Andrew.png</pixmap>
+     <pixmap>beans.jpg</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -223,51 +223,25 @@ background-color: rgb(255, 255, 255);</string>
      <rect>
       <x>480</x>
       <y>60</y>
-      <width>91</width>
-      <height>23</height>
+      <width>51</width>
+      <height>21</height>
      </rect>
     </property>
     <property name="text">
-     <string>Original Image</string>
+     <string>Original</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_4">
     <property name="geometry">
      <rect>
-      <x>580</x>
-      <y>60</y>
-      <width>91</width>
-      <height>23</height>
+      <x>480</x>
+      <y>90</y>
+      <width>51</width>
+      <height>21</height>
      </rect>
     </property>
     <property name="text">
-     <string>Single Channel</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_5">
-    <property name="geometry">
-     <rect>
-      <x>680</x>
-      <y>60</y>
-      <width>91</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Binary Image</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_6">
-    <property name="geometry">
-     <rect>
-      <x>780</x>
-      <y>60</y>
-      <width>161</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Annotated Image</string>
+     <string>Gray</string>
     </property>
    </widget>
    <widget class="QLCDNumber" name="lcdNumber">
@@ -348,13 +322,91 @@ background-color: rgb(255, 255, 255);</string>
      <string>Project: 09_12_Soy_500ImgTest</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton_13">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>150</y>
+      <width>51</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Annot.</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_5">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>120</y>
+      <width>51</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Binary</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_14">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>180</y>
+      <width>51</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Contour</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_15">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>210</y>
+      <width>51</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>EFD</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_16">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>240</y>
+      <width>51</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>EFD+Cnt</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_17">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>270</y>
+      <width>51</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>EFD-PCA</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>960</width>
+     <width>963</width>
      <height>21</height>
     </rect>
    </property>
