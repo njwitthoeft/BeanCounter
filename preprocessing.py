@@ -8,7 +8,7 @@ from exceptions import BarcodeNotFoundError
 def parse_arguments():
     parser = argparse.ArgumentParser(description='Get statistics from an image folder')
     parser.add_argument('-inpath', type=dir_path, help='input folder path')
-    parser.add_argument('-efd', default=0, help='number of elliptical fourier descriptors to save')
+    parser.add_argument('-efd', default=0, help='number of elliptical fourier descriptors to save, if 0 then calculate')
     parser.add_argument('-debug', default=False, help='save debug images')
     return parser.parse_args()
 
