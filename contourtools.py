@@ -1,74 +1,78 @@
+'''Manipulation of OpenCV contours'''
+from math import sqrt, pi, dist
+
 import cv2
 import numpy as np
-from math import sqrt, pi, dist
+
 from scipy.spatial.distance import pdist, squareform
 from numba import njit
 
 
 
+
 # def get_fourier(cnt):
 
+def get_metrics_list(cntlist):
+    '''takes in a list and provides functions'''
+    metriclist = []
+    for contour in cntlist:
+        metriclist.append(get_metrics(contour))
+    return metriclist
+
 def get_metrics(cnt):
-    '''takes in contour, coordinates getting metrics while saving compute time by not calling cv2.moments more than once'''
+    '''takes in contour, coordinates getting metrics while saving compute time'''
     #first, get moments
-    M = cv2.moments(cnt)
-    surface_area = M['m00']
+    moment = cv2.moments(cnt)
+    surface_area = moment['m00']
     perimeter = cv2.arcLength(cnt, closed = True)
     major, minor = get_axes(cnt)
     circularity = (4*pi*surface_area)/(perimeter**2)
     length = dist(major[0],major[1])
     width = dist(minor[0],minor[1])
-    aspect = length/width
+    aspect = length/width if width != 0 else -1
     intersect = line_intersect(major, minor)
-    cog = ((int(M['m10']/M['m00'])),(int(M['m01']/M['m00'])))
-    dist_is_cog = dist(intersect, cog)
+    try:
+        cog = ((int(moment['m10']/moment['m00'])),(int(moment['m01']/moment['m00'])))
+    except:
+        cog = (1, 1)
+    try:
+        dist_is_cog = dist(intersect, cog)
+    except:
+        dist_is_cog = 0.0
 
-    return [surface_area, perimeter, major, minor, circularity, length, width, aspect, intersect, cog, dist_is_cog]
-
-
-
-
-
-
-#     py_efd
-def get_circularity(cnt,area,perim):
-    return (4*pi*area)/(perim**2)
-
-def get_COG(cnt):
-    M = cv2.moments(cnt)
-    cx= int(M['m10']/M['m00'])
-    cy= int(M['m01']/M['m00'])
-    return (cx,cy)
-
+    return [surface_area, perimeter, major, minor, circularity,
+            length, width, aspect, intersect, cog, dist_is_cog]
 
 def get_axes(cnt):
+    '''Numpy finds farthest points, numba speeds up the minor axis'''
     cnt = cnt.reshape(-1,2)
-    #create a distance matrix reflexive on the contour you pass in, convert to square form 
+    #create a distance matrix reflexive on the contour you pass in, convert to square form
     d_mat = squareform(pdist(cnt))
 
     #find largest distance, get location of it
-    max = np.where(d_mat == d_mat.max())[0]
+    _max = np.where(d_mat == d_mat.max())[0]
 
     #make points for major axis
-    pt1 = (cnt[max[0]][0], cnt[max[0]][1])
-    pt2 = (cnt[max[1]][0], cnt[max[1]][1])
+    pt1 = (cnt[_max[0]][0], cnt[_max[0]][1])
+    pt2 = (cnt[_max[1]][0], cnt[_max[1]][1])
     majorpoints = (pt1,pt2)
-    minorpoints = core_minor_axis(cnt,max)
+    minorpoints = core_minor_axis(cnt,_max)
 
     return majorpoints, minorpoints
 
 
 @njit
-def core_minor_axis(cnt, max):
-    pt1 = (cnt[max[0]][0], cnt[max[0]][1])
-    pt2 = (cnt[max[1]][0], cnt[max[1]][1])
+def core_minor_axis(cnt, _max):
+    '''seems verbose, but allows numba to run in nopython, speedind this up a lot'''
+    pt1 = (cnt[_max[0]][0], cnt[_max[0]][1])
+    pt2 = (cnt[_max[1]][0], cnt[_max[1]][1])
     points = (pt1,pt2)
     num = (points[1][1] - points[0][1])
     div = (points[1][0] - points[0][0])
     if div != 0:
         majslope = -1*(num)/(div)
     else:
-        majslope = 0
+        majslope = 10000
     maxdist = 0
     maxp1 = (0,0)
     maxp2 = (0,0)
@@ -78,8 +82,8 @@ def core_minor_axis(cnt, max):
             min_div = (point2[0] - point1[0])
             if min_div != 0:
                 minslope = -1*(min_num)/(min_div)
-            else: 
-                minslope = 0
+            else:
+                minslope = 10000
             #print(minslope)
             if minslope < -1/(majslope) + 0.001:
                 if minslope > -1/(majslope) - 0.001:
@@ -93,28 +97,28 @@ def core_minor_axis(cnt, max):
                         maxp2 = pointb
     return (maxp1,maxp2)
 
-    
+
 def line_intersect(line1,line2):
     """ returns a (x, y) tuple or None if there is no intersection """
-    Ax1 = line1[0][0]
-    Ay1 = line1[0][1]
-    Ax2 = line1[1][0]
-    Ay2 = line1[1][1]
+    ax_1 = line1[0][0]
+    ay_1 = line1[0][1]
+    ax_2 = line1[1][0]
+    ay_2 = line1[1][1]
 
-    Bx1 = line2[0][0]
-    By1 = line2[0][1]
-    Bx2 = line2[1][0]
-    By2 = line2[1][1]
+    bx_1 = line2[0][0]
+    by_1 = line2[0][1]
+    bx_2 = line2[1][0]
+    by_2 = line2[1][1]
 
-    d = (By2 - By1) * (Ax2 - Ax1) - (Bx2 - Bx1) * (Ay2 - Ay1)
-    if d:
-        uA = ((Bx2 - Bx1) * (Ay1 - By1) - (By2 - By1) * (Ax1 - Bx1)) / d
-        uB = ((Ax2 - Ax1) * (Ay1 - By1) - (Ay2 - Ay1) * (Ax1 - Bx1)) / d
+    _d = (by_2 - by_1) * (ax_2 - ax_1) - (bx_2 - bx_1) * (ay_2 - ay_1)
+    if _d:
+        u_a = ((bx_2 - bx_1) * (ay_1 - by_1) - (by_2 - by_1) * (ax_1 - bx_1)) / _d
+        u_b = ((ax_2 - ax_1) * (ay_1 - by_1) - (ay_2 - ay_1) * (ax_1 - bx_1)) / _d
     else:
-        return
-    if not(0 <= uA <= 1 and 0 <= uB <= 1):
-        return
-    x = int(Ax1 + uA * (Ax2 - Ax1))
-    y = int(Ay1 + uA * (Ay2 - Ay1))
- 
-    return (x,y)
+        return None
+    if not(0 <= u_a <= 1 and 0 <= u_b <= 1):
+        return None
+    _x = int(ax_1 + u_a * (ax_2 - ax_1))
+    _y = int(ay_1 + u_a * (ay_2 - ay_1))
+
+    return (_x,_y)

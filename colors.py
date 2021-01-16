@@ -1,3 +1,4 @@
+'''Where the colors live'''
 #STANDARDS
 RED = (0,0,255)
 BLUE = (255,0,0)
@@ -7,6 +8,13 @@ BLACK = (0,0,0)
 CYAN = (255,255,0)
 YELLOW = (0,255,255)
 MAGENTA = (255,0,255)
+
+#HEX STANDARDS:
+#TODO: make this work again
+def to_hex(color):
+    '''Returns hex from BGR tuple'''
+    (blue, green , red) = (color)
+    return '#%02x%02x%02x' % (red, blue, green)
 
 #GOGOPHERS
 MAROON = (25,0,122)
@@ -21,4 +29,3 @@ FIVETHIRTYEIGHT_ORANGE = (48,79,252)
 FIVETHIRTYEIGHT_YELLOW = (56,174,229)
 FIVETHIRTYEIGHT_GREEN = (79,144,109)
 FIVETHIRTYEIGHT_GRAY = (139,139,139)
-

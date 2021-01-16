@@ -1,5 +1,6 @@
+'''Where segmentation lives'''
 import cv2
-from breakdowntools import splitImage
+#from breakdowntools import splitImage
 from exceptions import WrongColormodeError
 
 #beans = cv2.imread('beans.jpg')
@@ -10,6 +11,7 @@ from exceptions import WrongColormodeError
  #   cv2.imshow(chip)
   #  cv2.waitKey(0)
 def grayscale(img, colormode = 'all'):
+    '''returns grayscale image'''
     if colormode == 'all':
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     elif colormode == 'blue':
@@ -23,22 +25,20 @@ def grayscale(img, colormode = 'all'):
     return gray
 
 
-def segmentOtsu(chips, colormode = 'all'):
-    '''Takes in a list of image chips and returns binary images'''
-    binchips = []
-    for chip in chips:              
-        chipg = grayscale(chip, colormode)
-        _, bin = cv2.threshold(chipg, 0,255, cv2.THRESH_OTSU)
-        binchips.append(bin)
-    return binchips
+def segment_otsu(chip, colormode = 'all'):
+    '''Takes in an image chip and returns binary image'''
+    chipg = grayscale(chip, colormode)
+    _, binary = cv2.threshold(chipg, 0,255, cv2.THRESH_OTSU)
+    return binary
 
-
-def segmentAdaptive(chips, ngbhd = 100, offset = 10, colormode = 'all'):
+#TODO: make single image functions
+def segment_adaptive(chips, ngbhd = 100, offset = 10, colormode = 'all'):
+    '''adaptive segmentation'''
     binchips = []
     for chip in chips:
         chipg = grayscale(chip, colormode)
-        _, bin = cv2.adaptiveThreshold(chipg, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, ngbhd, offset)
-        binchips.append(bin)
+        _, binary = cv2.adaptiveThreshold(chipg, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, ngbhd, offset)
+        binchips.append(binary)
     return binchips
 
 # def segmentManual(chips, min, max, colormode = 'all'):
