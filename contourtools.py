@@ -6,6 +6,7 @@ import numpy as np
 
 from scipy.spatial.distance import pdist, squareform
 from numba import njit
+from pyefd import elliptic_fourier_descriptors
 
 
 
@@ -19,7 +20,7 @@ def get_metrics_list(cntlist):
         metriclist.append(get_metrics(contour))
     return metriclist
 
-def get_metrics(cnt):
+def get_metrics(cnt, efd = True):
     '''takes in contour, coordinates getting metrics while saving compute time'''
     #first, get moments
     moment = cv2.moments(cnt)
@@ -39,9 +40,16 @@ def get_metrics(cnt):
         dist_is_cog = dist(intersect, cog)
     except:
         dist_is_cog = 0.0
+    if efd:
+        efd = elliptic_fourier_descriptors(np.squeeze(cnt), order=10)
+
+    else:
+        efd = [-1 for i in 10]
+    #cv2.waitKey(0)
 
     return [surface_area, perimeter, major, minor, circularity,
-            length, width, aspect, intersect, cog, dist_is_cog]
+            length, width, aspect, intersect, cog, dist_is_cog, efd]
+
 
 def get_axes(cnt):
     '''Numpy finds farthest points, numba speeds up the minor axis'''

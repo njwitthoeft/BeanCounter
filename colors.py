@@ -14,7 +14,7 @@ MAGENTA = (255,0,255)
 def to_hex(color):
     '''Returns hex from BGR tuple'''
     (blue, green , red) = (color)
-    return '#%02x%02x%02x' % (red, blue, green)
+    return '#%02x%02x%02x' % (red, green, blue)
 
 #GOGOPHERS
 MAROON = (25,0,122)
@@ -22,6 +22,7 @@ GOLD = (51,204,255)
 
 #CUSTOMCOLORS
 CORAL = (80,127,255)
+LAVENDER = (210,151,193)
 
 #FIVETHIRTYEIGHT
 FIVETHIRTYEIGHT_BLUE = (218,162,48)

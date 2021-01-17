@@ -1,3 +1,4 @@
+'''Test framework'''
 import numpy as np
 import cv2
 
@@ -24,7 +25,6 @@ chip = cv2.drawContours(chip, contours[0], -1, colors.MAROON, 3)
 contour = contours[0]
 
 majpoints, minpoints = contourtools.get_axes(contour)
-cog = contourtools.get_COG(contour)
 
 cv2.line(chip, majpoints[0], majpoints[1], colors.CYAN, 2)
 
@@ -32,9 +32,7 @@ cv2.imshow('Major Axis', chip)
 cv2.waitKey(1)
 
 cv2.line(chip, minpoints[0], minpoints[1], colors.CORAL, 2)
-cv2.putText(chip, text="c", org=cog,
-            fontFace= cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.5, color=colors.GOLD,
-            thickness=1, lineType=cv2.LINE_AA)
+
 
 cv2.imshow('Minor too, plus a center of gravity', chip)
 cv2.waitKey(0)
