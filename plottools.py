@@ -1,9 +1,6 @@
 '''tools for plotting seed images'''
 
-from matplotlib import pyplot as plt
 import numpy as np
-
-_range = range
 
 
 def plot_efd_alt(coeffs, locus=(0., 0.), n=300):
@@ -18,7 +15,7 @@ def plot_efd_alt(coeffs, locus=(0., 0.), n=300):
     xt = np.ones((n,)) * locus[0]
     yt = np.ones((n,)) * locus[1]
 
-    for n in _range(coeffs.shape[0]):
+    for n in range(coeffs.shape[0]):
         xt += (coeffs[n, 0] * np.cos(2 * (n + 1) * np.pi * t)) + (
             coeffs[n, 1] * np.sin(2 * (n + 1) * np.pi * t)
         )
@@ -26,4 +23,4 @@ def plot_efd_alt(coeffs, locus=(0., 0.), n=300):
             coeffs[n, 3] * np.sin(2 * (n + 1) * np.pi * t)
         )
         if n == coeffs.shape[0]-1:
-            return yt, xt, "b", (1/1000)
+            return yt, xt, "b", 1

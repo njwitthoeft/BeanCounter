@@ -29,6 +29,7 @@ def segment_otsu(chip, colormode = 'all'):
     '''Takes in an image chip and returns binary image'''
     chipg = grayscale(chip, colormode)
     _, binary = cv2.threshold(chipg, 0,255, cv2.THRESH_OTSU)
+    binary = cv2.bitwise_not(binary)
     return binary
 
 #TODO: make single image functions
@@ -40,6 +41,7 @@ def segment_adaptive(chips, ngbhd = 100, offset = 10, colormode = 'all'):
         _, binary = cv2.adaptiveThreshold(chipg, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, ngbhd, offset)
         binchips.append(binary)
     return binchips
+
 
 # def segmentManual(chips, min, max, colormode = 'all'):
 #     binchips = []

@@ -46,3 +46,13 @@ def read_barcode(raw_img):
     except Exception as exc:
         raise BarcodeNotFoundError from exc
     return bar_id, my_bar
+
+#TODO: remove contour filtering once possible
+def imgappend(image):
+    '''return contours from image path'''
+    chip = cv2.imread(os.path.join(path,image))
+    binary = segmentation.segment_otsu(chip)
+    contours, __ = cv2.findContours(binary, cv2.RETR_LIST, cv2.CHAIN_APPROX_NONE)
+    #temporary
+    contours = [contour for contour in contours if cv2.contourArea(contour) > 1000]
+    return contours

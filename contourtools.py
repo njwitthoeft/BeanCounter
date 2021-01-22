@@ -10,18 +10,16 @@ from pyefd import elliptic_fourier_descriptors
 
 
 
-
-# def get_fourier(cnt):
+def efd(cnts):
+    return [elliptic_fourier_descriptors(np.squeeze(cnt)) for cnt in cnts]
 
 def get_metrics_list(cntlist):
-    '''takes in a list and provides functions'''
-    metriclist = []
-    for contour in cntlist:
-        metriclist.append(get_metrics(contour))
-    return metriclist
+    return [get_metrics(cnt) for cnt in cntlist]
 
-def get_metrics(cnt, efd = True):
-    '''takes in contour, coordinates getting metrics while saving compute time'''
+def get_metrics(cnt):
+    '''takes in contour, coordinates getting metrics while saving compute time
+        
+        :param list[tuples] cnt: ''A cv2 or scikit-image contour'''
     #first, get moments
     moment = cv2.moments(cnt)
     surface_area = moment['m00']
@@ -38,71 +36,78 @@ def get_metrics(cnt, efd = True):
         cog = (1, 1)
     try:
         dist_is_cog = dist(intersect, cog)
-    except:
+    except: 
         dist_is_cog = 0.0
-    if efd:
-        efd = elliptic_fourier_descriptors(np.squeeze(cnt), order=10)
 
-    else:
-        efd = [-1 for i in 10]
-    #cv2.waitKey(0)
-
-    return [surface_area, perimeter, major, minor, circularity,
-            length, width, aspect, intersect, cog, dist_is_cog, efd]
-
+    arr = np.array([surface_area, perimeter, circularity, length, width, aspect, dist_is_cog,
+                    intersect[0], intersect[1], cog[0], cog[1], major[0][0], major[0][1], major[1][0], major[1][1],
+                    minor[0][0], minor[0][1], minor[1][0], minor[1][1]], dtype = np.float32)
+    
+    return arr
 
 def get_axes(cnt):
     '''Numpy finds farthest points, numba speeds up the minor axis'''
     cnt = cnt.reshape(-1,2)
+
     #create a distance matrix reflexive on the contour you pass in, convert to square form
-    d_mat = squareform(pdist(cnt))
+    _d_mat = squareform(pdist(cnt))
 
     #find largest distance, get location of it
-    _max = np.where(d_mat == d_mat.max())[0]
+    _max = np.where(_d_mat == _d_mat.max())[0]
 
     #make points for major axis
-    pt1 = (cnt[_max[0]][0], cnt[_max[0]][1])
-    pt2 = (cnt[_max[1]][0], cnt[_max[1]][1])
-    majorpoints = (pt1,pt2)
-    minorpoints = core_minor_axis(cnt,_max)
+    _pt1 = (cnt[_max[0]][0], cnt[_max[0]][1])
+    _pt2 = (cnt[_max[1]][0], cnt[_max[1]][1])
+
+    majorpoints = (_pt1,_pt2)
+    minorpoints = minor_axis(cnt,_max)
 
     return majorpoints, minorpoints
 
 
 @njit
-def core_minor_axis(cnt, _max):
+def minor_axis(cnt, _max):
     '''seems verbose, but allows numba to run in nopython, speedind this up a lot'''
     pt1 = (cnt[_max[0]][0], cnt[_max[0]][1])
     pt2 = (cnt[_max[1]][0], cnt[_max[1]][1])
     points = (pt1,pt2)
     num = (points[1][1] - points[0][1])
     div = (points[1][0] - points[0][0])
+
     if div != 0:
         majslope = -1*(num)/(div)
     else:
         majslope = 10000
+
     maxdist = 0
     maxp1 = (0,0)
     maxp2 = (0,0)
+
     for point1 in cnt:
+
         for point2 in cnt:
             min_num = (point2[1] - point1[1])
             min_div = (point2[0] - point1[0])
+
             if min_div != 0:
                 minslope = -1*(min_num)/(min_div)
             else:
                 minslope = 10000
-            #print(minslope)
+
             if minslope < -1/(majslope) + 0.001:
+
                 if minslope > -1/(majslope) - 0.001:
                     pointa = (point1[0], point1[1])
                     pointb = (point2[0], point2[1])
-                    # replace dist with a homemade function, so numba can translate to get speedup
+
+                    # numba has no translation for math.dist, but does for math.sqrt
                     distance = sqrt(((pointa[0] - pointb[0])**2) + ((pointa[1] - pointb[1])**2))
+
                     if distance > maxdist:
                         maxdist = distance
                         maxp1 = pointa
                         maxp2 = pointb
+
     return (maxp1,maxp2)
 
 
@@ -123,9 +128,9 @@ def line_intersect(line1,line2):
         u_a = ((bx_2 - bx_1) * (ay_1 - by_1) - (by_2 - by_1) * (ax_1 - bx_1)) / _d
         u_b = ((ax_2 - ax_1) * (ay_1 - by_1) - (ay_2 - ay_1) * (ax_1 - bx_1)) / _d
     else:
-        return None
+        return (-1,-1)
     if not(0 <= u_a <= 1 and 0 <= u_b <= 1):
-        return None
+        return (-1,-1)
     _x = int(ax_1 + u_a * (ax_2 - ax_1))
     _y = int(ay_1 + u_a * (ay_2 - ay_1))
 
