@@ -1,0 +1,15 @@
+name: beancounter
+
+dependencies:
+  - python
+  - numpy
+  - scipy
+  - numba
+  - pip
+  - pandas
+  - matplotlib
+  - tqdm
+  - pip:
+    - pyefd
+    - opencv-python
+    - pyzbar
