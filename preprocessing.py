@@ -3,7 +3,8 @@
 import argparse
 import os
 import cv2
-import pyzbar
+import numpy as np
+
 from exceptions import BarcodeNotFoundError
 
 def parse_arguments():
@@ -56,3 +57,31 @@ def imgappend(image):
     #temporary
     contours = [contour for contour in contours if cv2.contourArea(contour) > 1000]
     return contours
+
+def get_mask(barcode, image, binary, dist=750):
+    (x,y,w,h) = barcode.rect
+
+    #expand rectangle
+    x1 = x - dist
+    y1 = y - dist
+    x2 = x + w + dist*2
+    y2 = y + h + dist
+    #generate mask based on barcode location
+    mask = np.ones(image.shape[:2],np.uint8)
+    mask[y1:y2,x1:x2] = 0
+    res = cv2.bitwise_and(binary,binary, mask = mask)
+    ret, res = cv2.threshold(res, 0, 255, cv2.THRESH_OTSU)
+    return res
+
+def total_bound(cnts):
+    boxes = []
+    for c in cnts:
+        (x, y, w, h) = cv2.boundingRect(c)
+        boxes.append([x,y, x+w,y+h])
+
+    boxes = np.asarray(boxes)
+    left, top = np.min(boxes, axis=0)[:2]
+    right, bottom = np.max(boxes, axis=0)[2:]
+    upperleft = (left,top)
+    bottomright = (right, bottom)
+    return upperleft, bottomright
