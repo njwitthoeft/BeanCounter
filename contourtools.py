@@ -1,17 +1,17 @@
 '''Manipulation of OpenCV contours'''
-from math import sqrt, pi, dist
+from math import sqrt, pi
 
 import cv2
 import numpy as np
 
 from scipy.spatial.distance import pdist, squareform
 from numba import njit
-from pyefd import elliptic_fourier_descriptors
+#from pyefd import elliptic_fourier_descriptors
 
 
 
-def efd(cnts):
-    return [elliptic_fourier_descriptors(np.squeeze(cnt)) for cnt in cnts]
+#$def efd(cnts):
+#    return [elliptic_fourier_descriptors(np.squeeze(cnt)) for cnt in cnts]
 
 def get_metrics_list(cntlist):
     return [get_metrics(cnt) for cnt in cntlist]
@@ -26,8 +26,15 @@ def get_metrics(cnt):
     perimeter = cv2.arcLength(cnt, closed = True)
     major, minor = get_axes(cnt)
     circularity = (4*pi*surface_area)/(perimeter**2)
-    length = dist(major[0],major[1])
-    width = dist(minor[0],minor[1])
+    pointa = major[0]
+    pointb = major[1]
+    length = sqrt(((pointa[0] - pointb[0])**2) + ((pointa[1] - pointb[1])**2))
+    # length = dist(major[0],major[1])
+    pointa = minor[0]
+    pointb = minor[1]
+    print(pointa, pointb)
+    width = sqrt(((pointa[0] - pointb[0])**2) + ((pointa[1] - pointb[1])**2))
+    #width = dist(minor[0],minor[1])
     aspect = length/width if width != 0 else -1
     intersect = line_intersect(major, minor)
     try:
@@ -39,9 +46,9 @@ def get_metrics(cnt):
     except: 
         dist_is_cog = 0.0
 
-    arr = np.array([surface_area, perimeter, circularity, length, width, aspect, dist_is_cog,
-                    intersect[0], intersect[1], cog[0], cog[1], major[0][0], major[0][1], major[1][0], major[1][1],
-                    minor[0][0], minor[0][1], minor[1][0], minor[1][1]], dtype = np.float32)
+    arr = [surface_area, perimeter, circularity, length, width, aspect]
+                #intersect[0], intersect[1], cog[0], cog[1], major[0][0], major[0][1], major[1][0], major[1][1],
+                #minor[0][0], minor[0][1], minor[1][0], minor[1][1]]
     
     return arr
 
@@ -94,9 +101,9 @@ def minor_axis(cnt, _max):
             else:
                 minslope = 10000
 
-            if minslope < -1/(majslope) + 0.001:
+            if minslope < -1/(majslope) + 0.01:
 
-                if minslope > -1/(majslope) - 0.001:
+                if minslope > -1/(majslope) - 0.01:
                     pointa = (point1[0], point1[1])
                     pointb = (point2[0], point2[1])
 
