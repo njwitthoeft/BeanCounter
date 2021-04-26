@@ -1,0 +1,55 @@
+name: analysis
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - ca-certificates=2021.4.13=haa95532_1
+  - certifi=2020.12.5=py37haa95532_0
+  - freeglut=3.2.1=h0e60522_2
+  - freetype=2.10.4=h546665d_1
+  - icu=68.1=h0e60522_0
+  - intel-openmp=2021.2.0=h57928b3_616
+  - jasper=2.0.14=h77af90b_2
+  - jpeg=9d=h8ffe710_0
+  - libblas=3.9.0=8_mkl
+  - libcblas=3.9.0=8_mkl
+  - libclang=11.1.0=default_h5c34c98_0
+  - liblapack=3.9.0=8_mkl
+  - liblapacke=3.9.0=8_mkl
+  - libopencv=4.5.1=py37h9d0389d_1
+  - libpng=1.6.37=h1d00b33_2
+  - libprotobuf=3.15.8=h7755175_0
+  - libtiff=4.2.0=hc10be44_0
+  - libwebp-base=1.2.0=h8ffe710_2
+  - llvmlite=0.36.0=py37h34b8924_4
+  - lz4-c=1.9.3=h8ffe710_0
+  - mkl=2020.4=hb70f87d_311
+  - numba=0.53.1=py37hf11a4ad_0
+  - numpy=1.20.2=py37hcbcd69c_0
+  - opencv=4.5.1=py37h03978a9_1
+  - openssl=1.1.1k=h2bbff1b_0
+  - pip=21.0.1=py37haa95532_0
+  - py-opencv=4.5.1=py37h7813e69_1
+  - python=3.7.10=h6244533_0
+  - python_abi=3.7=1_cp37m
+  - qt=5.12.9=h5909a2a_4
+  - setuptools=52.0.0=py37haa95532_0
+  - sqlite=3.35.4=h2bbff1b_0
+  - tbb=2020.3=h74a9793_0
+  - tqdm=4.59.0=pyhd3eb1b0_1
+  - vc=14.2=h21ff451_1
+  - vs2015_runtime=14.27.29016=h5e58377_2
+  - wheel=0.36.2=pyhd3eb1b0_0
+  - wincertstore=0.2=py37_0
+  - xz=5.2.5=h62dcd97_1
+  - zlib=1.2.11=h62dcd97_1010
+  - zstd=1.4.9=h6255e5f_0
+  - pip:
+    - pandas==1.2.4
+    - python-dateutil==2.8.1
+    - pytz==2021.1
+    - pyzbar==0.1.8
+    - scipy==1.6.2
+    - six==1.15.0
+prefix: C:\Users\njwit\anaconda3\envs\analysis
+
