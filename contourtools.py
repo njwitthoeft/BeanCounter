@@ -6,12 +6,7 @@ import numpy as np
 
 from scipy.spatial.distance import pdist, squareform
 from numba import njit
-#from pyefd import elliptic_fourier_descriptors
 
-
-
-#$def efd(cnts):
-#    return [elliptic_fourier_descriptors(np.squeeze(cnt)) for cnt in cnts]
 
 def get_metrics_list(cntlist):
     return [get_metrics(cnt) for cnt in cntlist]
@@ -32,7 +27,6 @@ def get_metrics(cnt):
     # length = dist(major[0],major[1])
     pointa = minor[0]
     pointb = minor[1]
-    print(pointa, pointb)
     width = sqrt(((pointa[0] - pointb[0])**2) + ((pointa[1] - pointb[1])**2))
     #width = dist(minor[0],minor[1])
     aspect = length/width if width != 0 else -1

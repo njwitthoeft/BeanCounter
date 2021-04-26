@@ -10,7 +10,6 @@ YELLOW = (0,255,255)
 MAGENTA = (255,0,255)
 
 #HEX STANDARDS:
-#TODO: make this work again
 def to_hex(color):
     '''Returns hex from BGR tuple'''
     (blue, green , red) = (color)
