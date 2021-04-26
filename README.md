@@ -16,5 +16,5 @@ Activate the analysis environment, then run main_interactive_mask.py -inpath "YO
 
 The images will load, then the first will be used to mask areas outside of the seed tray. 
 
-![Masked](https://github.com/njwitthoeft/BeanCounter/blob/master/traced.png?raw=true)
-![Traced](https://github.com/njwitthoeft/BeanCounter/blob/master/masked.png?raw=true)
+![Masked](extras/traced.png)
+![Traced](extras/masked.png)
