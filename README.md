@@ -18,3 +18,5 @@ The images will load, then the first will be used to mask areas outside of the s
 
 ![Masked](extras/traced.png)
 ![Traced](extras/masked.png)
+
+After masking, use any key to move forward and review each image, or hold down to skip through the images. If imaged are not consitently framed, the mask may interfere with the seed shape description.
