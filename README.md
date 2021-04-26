@@ -1,5 +1,5 @@
 # BeanCounter
-Image analysis for rapid phenotyping of soybeans. Developing under the UROP @ University of Minnesota
+Image analysis for rapid phenotyping of soybeans. Developed under the UROP @ University of Minnesota
 
 ## Overview
 This software is used to rapidly measure dimensions of seeds from images taken in an overhead camera rig.
