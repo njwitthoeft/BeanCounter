@@ -20,4 +20,8 @@ The images will load, then the first will be used to mask areas outside of the s
 ![Traced](extras/masked.png)
 
 After masking, use any key to move forward and review each image, or hold down to skip through the images. If imaged are not consitently framed, the mask may interfere with the seed shape description.
-The program will output a 'results.csv' file with each seed of each image as a row. Files should be named in a way that identifies the accession in the image.
+
+
+The program will output a 'results.csv' file with each seed of each image as a row. 
+
+Files should be named in a way that identifies the accession in the image.
