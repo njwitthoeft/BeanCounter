@@ -184,14 +184,14 @@ for idx2, image in enumerate(tqdm(imlist, desc = 'Manual Inspection')):
     # make an image for display, first put it in color
     disp = cv2.cvtColor(binary, cv2.COLOR_GRAY2BGR)
     #then put all the contours on the display image
-    disp = cv2.drawContours(disp, newcontours, -1, colors.MAROON, 9)
+    disp = cv2.drawContours(disp, newcontours, -1, colors.FIVETHIRTYEIGHT_ORANGE, 9)
     
     #then label each imaage with the contour numbers
     for idx, cnt in enumerate(newcontours):
-        cv2.putText(disp, str(idx), newcontourpoints[idx], cv2.FONT_HERSHEY_SIMPLEX, 3, colors.BLUE, 5 )
+        cv2.putText(disp, str(idx), (newcontourpoints[idx][0]+75,newcontourpoints[idx][1]+75), cv2.FONT_HERSHEY_SIMPLEX, 3, colors.CYAN, 5 )
 
     #put a coral line between the two furthest points
-    cv2.line(disp, _pt1, _pt2, colors.CORAL, 9)
+    cv2.line(disp, _pt1, _pt2, colors.GREEN, 9)
     
     #use the cool property to determine if the image has issues
     if(maxl/mean > 1.5):
@@ -206,6 +206,7 @@ for idx2, image in enumerate(tqdm(imlist, desc = 'Manual Inspection')):
     disp = cv2.resize(disp, None, fx = 0.25, fy = 0.25, interpolation = cv2.INTER_AREA)
     cv2.imshow('Contours', disp)
     cv2.waitKey(0)
+    
     if ap.debug:
         if(not os.path.exists(os.path.join( ap.inpath, "debug"))):
             os.mkdir(os.path.join(ap.inpath, "debug"))
