@@ -1,6 +1,17 @@
 # BeanCounter
 Image analysis for rapid phenotyping of soybeans. Developed under the [UROP @ University of Minnesota](https://hdl.handle.net/11299/219531)
 
+### BeanCounter is published (but not peer-reviewed)!
+[Nicholas' poster from Early 2021](https://hdl.handle.net/11299/219531)
+
+![image](https://user-images.githubusercontent.com/49255471/148705955-8bb7cdad-7335-4054-8ead-2292c8965cfc.png)
+
+## #BeanCounter is published again!
+[Sam Kuralle's Poster from Late 2021](https://www.linkedin.com/feed/update/urn:li:activity:6872335054912196608/)
+
+![1638492357851](https://user-images.githubusercontent.com/49255471/148706144-ee81c777-7fc1-416c-a8d0-f6822625e70c.jpg)
+
+
 ## Overview
 This software is used to rapidly measure dimensions of seeds from images taken in an overhead camera rig.
 
