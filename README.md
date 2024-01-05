@@ -6,7 +6,7 @@ Image analysis for rapid phenotyping of soybeans. Developed under the [UROP @ Un
 
 ![image](https://user-images.githubusercontent.com/49255471/148705955-8bb7cdad-7335-4054-8ead-2292c8965cfc.png)
 
-## #BeanCounter is published again!
+## BeanCounter is published again!
 [Sam Kuralle's Poster from Late 2021](https://www.linkedin.com/feed/update/urn:li:activity:6872335054912196608/)
 
 ![1638492357851](https://user-images.githubusercontent.com/49255471/148706144-ee81c777-7fc1-416c-a8d0-f6822625e70c.jpg)
